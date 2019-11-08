@@ -8,10 +8,16 @@
         <outputRelativeToContentRoot value="true" />
         <module name="gmall-wms" />
         <module name="gmall-ums" />
-        <module name="gmall-sms" />
         <module name="gmall-core" />
+        <module name="gmall-search" />
         <module name="gmall-oms" />
+        <module name="gmall-gateway" />
+        <module name="gmall-pms-interface" />
+        <module name="gmall-generator" />
         <module name="gmall-pms" />
+        <module name="gmall-sms-interface" />
+        <module name="gmall-wms-interface" />
+        <module name="gmall-sms" />
         <module name="gmall-admin" />
       </profile>
     </annotationProcessing>
@@ -19,8 +25,11 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="gmall-admin" options="-parameters" />
+      <module name="gmall-gateway" options="-parameters" />
+      <module name="gmall-generator" options="-parameters" />
       <module name="gmall-oms" options="-parameters" />
       <module name="gmall-pms" options="-parameters" />
+      <module name="gmall-search" options="-parameters" />
       <module name="gmall-sms" options="-parameters" />
       <module name="gmall-ums" options="-parameters" />
       <module name="gmall-wms" options="-parameters" />

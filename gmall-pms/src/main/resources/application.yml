@@ -1,0 +1,6 @@
+spring:
+  rabbitmq:
+    host: 192.168.18.111
+    virtual-host: /fenge
+    username: fenge
+    password: fenge
