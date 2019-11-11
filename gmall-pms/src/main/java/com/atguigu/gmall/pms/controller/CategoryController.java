@@ -2,12 +2,12 @@ package com.atguigu.gmall.pms.controller;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
+import com.atguigu.gmall.pms.vo.CategoryVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +33,13 @@ import com.atguigu.gmall.pms.service.CategoryService;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+
+    @GetMapping("{pid}")
+    public Resp<List<CategoryVO>> queryCategoryWithSub(@PathVariable("pid")Long pid){
+        List<CategoryVO> categoryVOS = this.categoryService.queryCategoryWithSub(pid);
+        return  Resp.ok(categoryVOS);
+    }
+
 
     @GetMapping
     public Resp<List<CategoryEntity>> queryCategories(@RequestParam(value = "level",defaultValue = "0")Integer level,@RequestParam(value = "parentCid",required = false)Integer parentCid){
