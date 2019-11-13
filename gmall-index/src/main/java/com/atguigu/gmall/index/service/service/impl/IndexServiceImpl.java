@@ -9,7 +9,9 @@ import com.atguigu.gmall.index.service.IndexService;
 import com.atguigu.gmall.pms.entity.CategoryEntity;
 import com.atguigu.gmall.pms.vo.CategoryVO;
 import org.apache.commons.lang3.StringUtils;
+import org.redisson.api.RCountDownLatch;
 import org.redisson.api.RLock;
+import org.redisson.api.RReadWriteLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -135,4 +137,53 @@ public class IndexServiceImpl implements IndexService {
     }
 
 
+    /**
+     * 以下是copy老师github上的，时间如果允许可以自行练习一遍
+     * @return
+     */
+
+    public String testRead() {
+        RReadWriteLock readWriteLock = this.redissonClient.getReadWriteLock("readWriteLock");
+        readWriteLock.readLock().lock(10l, TimeUnit.SECONDS);
+
+        String msg = this.redisTemplate.opsForValue().get("msg");
+
+//        readWriteLock.readLock().unlock();
+        return msg;
+    }
+
+    public String testWrite() {
+        RReadWriteLock readWriteLock = this.redissonClient.getReadWriteLock("readWriteLock");
+        readWriteLock.writeLock().lock(10l, TimeUnit.SECONDS);
+
+        String msg = UUID.randomUUID().toString();
+        this.redisTemplate.opsForValue().set("msg", msg);
+
+//        readWriteLock.writeLock().unlock();
+        return "数据写入成功。。 " + msg;
+    }
+
+    public String latch() throws InterruptedException {
+
+        RCountDownLatch latchDown = this.redissonClient.getCountDownLatch("latchDown");
+
+//        String countString = this.redisTemplate.opsForValue().get("count");
+//        int count = Integer.parseInt(countString);
+        latchDown.trySetCount(5);
+
+        latchDown.await();
+        return "班长锁门。。。。。";
+    }
+
+    public String out() {
+        RCountDownLatch latchDown = this.redissonClient.getCountDownLatch("latchDown");
+
+//        String countString = this.redisTemplate.opsForValue().get("count");
+//        int count = Integer.parseInt(countString);
+//        this.redisTemplate.opsForValue().set("count", String.valueOf(--count));
+
+        latchDown.countDown();
+        return "出来了一个人。。。。";
+    }
 }
+
