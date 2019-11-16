@@ -64,4 +64,7 @@ public interface GmallPmsApi {
     @GetMapping("pms/attrgroup/item/group/{cid}/{spuId}")
     public Resp<List<GroupVO>> queryGroupVOByCid(@PathVariable("cid")Long cid,@PathVariable("spuId")Long spuId);
 
+//    根据skuId查询商品规格参数
+    @GetMapping("pms/skusaleattrvalue/sku/{skuId}")
+    public Resp<List<SkuSaleAttrValueEntity>> querySaleAttrBySkuId(@PathVariable("skuId")Long skuId);
 }

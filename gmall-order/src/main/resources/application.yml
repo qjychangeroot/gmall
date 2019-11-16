@@ -1,0 +1,19 @@
+server:
+  port: 8092
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  redis:
+    host: 192.168.18.111
+  rabbitmq:
+    host: 192.168.18.111
+    virtual-host: /fenge
+    username: fenge
+    password: fenge
+auth:
+  jwt:
+    publicKeyPath: C:\\0615javaee\\javaeestudy\\workspace_idea01\\tmp\\rsa.pub
+    cookieName: GMALL_TOKEN
+
